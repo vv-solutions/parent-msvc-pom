@@ -17,14 +17,20 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      - name: Create settings XML
+        uses: whelk-io/maven-settings-xml-action@v20
+        with:
+          repositories: '[{ "id": "central", "url": "https://repo1.maven.org/maven2" },{ "id": "github", "url": "https://maven.pkg.github.com/vv-solutions/packages" }]'
+          servers: '[{ "id": "github", "username": "${{ secrets.PACKAGE_DEPLOY_USERNAME }}", "password": "${{ secrets.PACKAGE_DEPLOY_TOKEN }}" }]'
+          output_file: .m2/settings.xml
 
       - name: Deploy to GitHub
         run: |
-          mvn versions:set -DnewVersion=1.0.${{ github.run_number }} -P github-build --settings settings.xml
+          mvn versions:set -DnewVersion=1.0.${{ github.run_number }} -P github-build 
           
-          mvn clean install -P github-build --settings settings.xml
+          mvn clean install -P github-build 
           
-          mvn --batch-mode -DuseGitHubPackages=true deploy -P github-deploy,github-build --settings settings.xml
+          mvn --batch-mode -DuseGitHubPackages=true deploy -P github-deploy,github-build
         env:
           ACCESS_TOKEN: ${{ secrets.PACKAGE_DEPLOY_TOKEN }}
           USER_NAME: ${{ secrets.PACKAGE_DEPLOY_USERNAME }}
