@@ -29,4 +29,4 @@ jobs:
           
           mvn --batch-mode -DuseGitHubPackages=true deploy -P github-deploy,github-build
         env:
-          GITHUB_TOKEN: ${{ secrets.PACKAGE_DEPLOY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
