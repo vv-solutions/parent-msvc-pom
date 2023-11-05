@@ -26,10 +26,10 @@ jobs:
           mkdir -p ~/.m2
           echo "<settings><servers><server><id>github</id><username>vincentbuchholz</username><password>\ ${{ secrets.PACKAGE_DEPLOY_TOKEN }}</password></server></servers></settings>" > ~/.m2/settings.xml
           
-          mvn versions:set -DnewVersion=1.0.${{ github.run_number }} -P github-build --settings settings.xml
+          mvn versions:set -DnewVersion=1.0.${{ github.run_number }} -P github-build --settings ~/.m2/settings.xml
           
-          mvn clean install -P github-build --settings settings.xml
+          mvn clean install -P github-build --settings ~/.m2/settings.xml
           
-          mvn --batch-mode -DuseGitHubPackages=true deploy -P github-deploy,github-build --settings settings.xml
+          mvn --batch-mode -DuseGitHubPackages=true deploy -P github-deploy,github-build --settings ~/.m2/settings.xml
         env:
           TOKEN: ${{ secrets.PACKAGE_DEPLOY_TOKEN }}
