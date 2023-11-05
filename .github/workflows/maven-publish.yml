@@ -26,6 +26,5 @@ jobs:
           
           mvn --batch-mode -DuseGitHubPackages=true deploy -P github-deploy,github-build --settings settings.xml
         env:
-          GITHUB_TOKEN: ${{ secrets.PACKAGE_DEPLOY_TOKEN }}
           ACCESS_TOKEN: ${{ secrets.PACKAGE_DEPLOY_TOKEN }}
           USER_NAME: vincentbuchholz
