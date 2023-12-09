@@ -7,7 +7,7 @@
   <parent>
     <groupId>dk.vv</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>1.0.14</version>
+    <version>1.0.15</version>
   </parent>
 
   <artifactId>parent-msvc-pom</artifactId>
